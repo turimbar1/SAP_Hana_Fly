@@ -1,0 +1,425 @@
+#
+# Copyright © Red Gate Software Ltd 2010-2021
+#
+# INTERNAL RELEASE. ALL RIGHTS RESERVED.
+#
+# Must
+# be
+# exactly
+# 13 lines
+# to match
+# community
+# edition
+# license
+# length.
+#
+
+version: "3"
+services:
+  cockroachdb-11:
+    image: "cockroachdb/cockroach:v1.1.9"
+    ports:
+    - "127.0.0.1:62000:26257"
+    privileged: true
+    tmpfs:
+    - /cockroach/cockroach-data:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/cockroachdb/entrypoint.sh:/entrypoint.sh
+    - ../flyway-core/src/test/resources/migration/database/cockroachdb/createDatabase.sql:/createDatabase.sql
+    entrypoint:
+    - /entrypoint.sh
+  cockroachdb-20:
+    image: "cockroachdb/cockroach:v2.0.7"
+    ports:
+    - "127.0.0.1:62001:26257"
+    privileged: true
+    tmpfs:
+    - /cockroach/cockroach-data:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/cockroachdb/entrypoint.sh:/entrypoint.sh
+    - ../flyway-core/src/test/resources/migration/database/cockroachdb/createDatabase.sql:/createDatabase.sql
+    entrypoint:
+    - /entrypoint.sh
+  cockroachdb-21:
+    image: "cockroachdb/cockroach:v2.1.4"
+    ports:
+    - "127.0.0.1:62002:26257"
+    privileged: true
+    tmpfs:
+    - /cockroach/cockroach-data:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/cockroachdb/entrypoint.sh:/entrypoint.sh
+    - ../flyway-core/src/test/resources/migration/database/cockroachdb/createDatabase.sql:/createDatabase.sql
+    entrypoint:
+    - /entrypoint.sh
+  cockroachdb-191:
+    image: "cockroachdb/cockroach:v19.1.3"
+    ports:
+    - "127.0.0.1:62003:26257"
+    privileged: true
+    tmpfs:
+    - /cockroach/cockroach-data:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/cockroachdb/entrypoint.sh:/entrypoint.sh
+    - ../flyway-core/src/test/resources/migration/database/cockroachdb/createDatabase.sql:/createDatabase.sql
+    entrypoint:
+    - /entrypoint.sh
+  cockroachdb-192:
+    image: "cockroachdb/cockroach:v19.2.0"
+    ports:
+    - "127.0.0.1:62004:26257"
+    privileged: true
+    tmpfs:
+    - /cockroach/cockroach-data:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/cockroachdb/entrypoint.sh:/entrypoint.sh
+    - ../flyway-core/src/test/resources/migration/database/cockroachdb/createDatabase.sql:/createDatabase.sql
+    entrypoint:
+    - /entrypoint.sh
+  cockroachdb-201:
+    image: "cockroachdb/cockroach:v20.1.1"
+    ports:
+    - "127.0.0.1:62005:26257"
+    privileged: true
+    tmpfs:
+    - /cockroach/cockroach-data:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/cockroachdb/entrypoint.sh:/entrypoint.sh
+    - ../flyway-core/src/test/resources/migration/database/cockroachdb/createDatabase.sql:/createDatabase.sql
+    entrypoint:
+    - /entrypoint.sh
+  cockroachdb-202:
+    image: "cockroachdb/cockroach:latest-v20.2"
+    ports:
+    - "127.0.0.1:62006:26257"
+    privileged: true
+    tmpfs:
+    - /cockroach/cockroach-data:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/cockroachdb/entrypoint202.sh:/entrypoint202.sh
+    - ../flyway-core/src/test/resources/migration/database/cockroachdb/createDatabase.sql:/createDatabase.sql
+    entrypoint:
+    - /entrypoint202.sh
+  cockroachdb-211:
+    image: "cockroachdb/cockroach:latest-v21.1"
+    ports:
+      - "127.0.0.1:62007:26257"
+    privileged: true
+    tmpfs:
+      - /cockroach/cockroach-data:rw
+    volumes:
+      - ../flyway-core/src/test/resources/migration/database/cockroachdb/entrypoint202.sh:/entrypoint202.sh
+      - ../flyway-core/src/test/resources/migration/database/cockroachdb/createDatabase.sql:/createDatabase.sql
+    entrypoint:
+      - /entrypoint202.sh
+  firebird-30:
+    image: "jacobalberty/firebird:3.0.4"
+    ports:
+    - "127.0.0.1:62020:3050"
+    privileged: true
+    tmpfs:
+    - /firebird/data:rw
+    environment:
+    - ISC_PASSWORD=flywayPWD000
+    - FIREBIRD_DATABASE=flyway_db.fdb
+  firebird-40:
+    image: "jacobalberty/firebird:4.0"
+    ports:
+    - "127.0.0.1:62021:3050"
+    privileged: true
+    tmpfs:
+    - /firebird/data:rw
+    environment:
+    - ISC_PASSWORD=flywayPWD000
+    - FIREBIRD_DATABASE=flyway_db.fdb
+  informix-1210:
+    image: "ibmcom/informix-developer-database:12.10.FC10DE"
+    ports:
+    - "127.0.0.1:62030:9088"
+    privileged: true
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/informix/informix_entry.sh:/opt/ibm/scripts/informix_entry.sh
+    environment:
+    - LICENSE=accept
+  mariadb-55:
+    image: "mariadb:5.5.57"
+    ports:
+    - "127.0.0.1:62040:3306"
+    privileged: true
+    tmpfs:
+    - /var/lib/mysql:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/mysql/my.cnf:/etc/mysql/conf.d/config-file.cnf
+    environment:
+    - MYSQL_DATABASE=flyway_db
+    - MYSQL_USER=flyway
+    - MYSQL_PASSWORD=flywayPWD000
+    - MYSQL_ROOT_PASSWORD=flywayPWD000
+  mariadb-100:
+    image: "mariadb:10.0.32"
+    ports:
+    - "127.0.0.1:62041:3306"
+    privileged: true
+    tmpfs:
+    - /var/lib/mysql:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/mysql/my.cnf:/etc/mysql/conf.d/config-file.cnf
+    environment:
+    - MYSQL_DATABASE=flyway_db
+    - MYSQL_USER=flyway
+    - MYSQL_PASSWORD=flywayPWD000
+    - MYSQL_ROOT_PASSWORD=flywayPWD000
+  mariadb-101:
+    image: "mariadb:10.1.28"
+    ports:
+    - "127.0.0.1:62042:3306"
+    privileged: true
+    tmpfs:
+    - /var/lib/mysql:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/mysql/my.cnf:/etc/mysql/conf.d/config-file.cnf
+    environment:
+    - MYSQL_DATABASE=flyway_db
+    - MYSQL_USER=flyway
+    - MYSQL_PASSWORD=flywayPWD000
+    - MYSQL_ROOT_PASSWORD=flywayPWD000
+  mariadb-102:
+    image: "mariadb:10.2.10"
+    ports:
+    - "127.0.0.1:62043:3306"
+    privileged: true
+    tmpfs:
+    - /var/lib/mysql:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/mysql/my.cnf:/etc/mysql/conf.d/config-file.cnf
+    environment:
+    - MYSQL_DATABASE=flyway_db
+    - MYSQL_USER=flyway
+    - MYSQL_PASSWORD=flywayPWD000
+    - MYSQL_ROOT_PASSWORD=flywayPWD000
+  mariadb-103:
+    image: "mariadb:10.3.8"
+    ports:
+    - "127.0.0.1:62044:3306"
+    privileged: true
+    tmpfs:
+    - /var/lib/mysql:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/mysql/my.cnf:/etc/mysql/conf.d/config-file.cnf
+    environment:
+    - MYSQL_DATABASE=flyway_db
+    - MYSQL_USER=flyway
+    - MYSQL_PASSWORD=flywayPWD000
+    - MYSQL_ROOT_PASSWORD=flywayPWD000
+  mariadb-104:
+    image: "mariadb:10.4.15"
+    ports:
+    - "127.0.0.1:62045:3306"
+    privileged: true
+    tmpfs:
+    - /var/lib/mysql:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/mysql/my.cnf:/etc/mysql/conf.d/config-file.cnf
+    environment:
+    - MYSQL_DATABASE=flyway_db
+    - MYSQL_USER=flyway
+    - MYSQL_PASSWORD=flywayPWD000
+    - MYSQL_ROOT_PASSWORD=flywayPWD000
+  mariadb-105:
+    image: "mariadb:10.5.9"
+    ports:
+    - "127.0.0.1:62046:3306"
+    privileged: true
+    tmpfs:
+    - /var/lib/mysql:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/mysql/my.cnf:/etc/mysql/conf.d/config-file.cnf
+    environment:
+    - MYSQL_DATABASE=flyway_db
+    - MYSQL_USER=flyway
+    - MYSQL_PASSWORD=flywayPWD000
+    - MYSQL_ROOT_PASSWORD=flywayPWD000
+  mysql-51:
+    image: "vsamov/mysql-5.1.73"
+    ports:
+    - "127.0.0.1:62050:3306"
+    privileged: true
+    tmpfs:
+    - /var/lib/mysql:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/mysql/my.cnf:/etc/mysql/conf.d/config-file.cnf
+    environment:
+    - MYSQL_DATABASE=flyway_db
+    - MYSQL_USER=flyway
+    - MYSQL_PASSWORD=flywayPWD000
+    - MYSQL_ROOT_PASSWORD=flywayPWD000
+  mysql-55:
+    image: "mysql:5.5.62"
+    ports:
+    - "127.0.0.1:62051:3306"
+    privileged: true
+    tmpfs:
+    - /var/lib/mysql:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/mysql/my.cnf:/etc/mysql/conf.d/config-file.cnf
+    environment:
+    - MYSQL_DATABASE=flyway_db
+    - MYSQL_USER=flyway
+    - MYSQL_PASSWORD=flywayPWD000
+    - MYSQL_ROOT_PASSWORD=flywayPWD000
+  mysql-56:
+    image: "mysql:5.6.43"
+    ports:
+    - "127.0.0.1:62052:3306"
+    privileged: true
+    tmpfs:
+    - /var/lib/mysql:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/mysql/my.cnf:/etc/mysql/conf.d/config-file.cnf
+    environment:
+    - MYSQL_DATABASE=flyway_db
+    - MYSQL_USER=flyway
+    - MYSQL_PASSWORD=flywayPWD000
+    - MYSQL_ROOT_PASSWORD=flywayPWD000
+  mysql-57:
+    image: "mysql:5.7.20"
+    ports:
+    - "127.0.0.1:62053:3306"
+    privileged: true
+    tmpfs:
+    - /var/lib/mysql:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/mysql/my.cnf:/etc/mysql/conf.d/config-file.cnf
+    environment:
+    - MYSQL_DATABASE=flyway_db
+    - MYSQL_USER=flyway
+    - MYSQL_PASSWORD=flywayPWD000
+    - MYSQL_ROOT_PASSWORD=flywayPWD000
+  mysql-57-xtradb:
+    image: "percona/percona-xtradb-cluster:5.7.22"
+    ports:
+    - "127.0.0.1:62054:3306"
+    privileged: true
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/mysql/my-pxc.cnf:/etc/mysql/conf.d/config-file.cnf
+    environment:
+    - CLUSTER_NAME=flyway_db
+    - MYSQL_DATABASE=flyway_db
+    - MYSQL_USER=flyway
+    - MYSQL_PASSWORD=flywayPWD000
+    - MYSQL_ROOT_PASSWORD=flywayPWD000
+  mysql-80:
+    image: "mysql:8.0.11"
+    ports:
+    - "127.0.0.1:62055:3306"
+    privileged: true
+    tmpfs:
+    - /var/lib/mysql:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/mysql/my.cnf:/etc/mysql/conf.d/config-file.cnf
+    environment:
+    - MYSQL_DATABASE=flyway_db
+    - MYSQL_USER=flyway
+    - MYSQL_PASSWORD=flywayPWD000
+    - MYSQL_ROOT_PASSWORD=flywayPWD000
+  mysql-80-gtid:
+    image: "mysql:8.0.11"
+    ports:
+    - "127.0.0.1:62056:3306"
+    privileged: true
+    tmpfs:
+    - /var/lib/mysql:rw
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/mysql/my-gtidConsistencyEnforced.cnf:/etc/mysql/conf.d/config-file.cnf
+    environment:
+    - MYSQL_DATABASE=flyway_db
+    - MYSQL_USER=flyway
+    - MYSQL_PASSWORD=flywayPWD000
+    - MYSQL_ROOT_PASSWORD=flywayPWD000
+  mysql-80-xtradb:
+    image: "percona/percona-xtradb-cluster:8.0"
+    ports:
+      - "127.0.0.1:62057:3306"
+    privileged: true
+    volumes:
+      - ../flyway-core/src/test/resources/migration/database/mysql/my-pxc.cnf:/etc/mysql/conf.d/config-file.cnf
+    environment:
+      - CLUSTER_NAME=flyway_db
+      - MYSQL_DATABASE=flyway_db
+      - MYSQL_USER=flyway
+      - MYSQL_PASSWORD=flywayPWD000
+      - MYSQL_ROOT_PASSWORD=flywayPWD000
+  saphana-2:
+    image: "store/saplabs/hanaexpress:2.00.045.00.20200121.1"
+    ports:
+    - "127.0.0.1:62080:39041"
+    privileged: true
+    ulimits:
+      nofile:
+        soft: 1048576
+        hard: 1048576
+    sysctls:
+    - "kernel.shmmax=1073741824"
+    - "kernel.shmmni=4096"
+    - "kernel.shmall=8388608"
+    - "net.ipv4.ip_local_port_range=40000 60999"
+    # To be set in /etc/sysctl.conf on the host
+    # fs.file-max=20000000
+    # fs.aio-max-nr=262144
+    # vm.memory_failure_early_kill=1
+    # vm.max_map_count=135217728
+    volumes:
+    - ./password.json:/password.json
+    command: --dont-check-system --dont-exit-on-error --passwords-url file:///password.json --agree-to-sap-license
+  sqlserver-2017:
+    image: "mcr.microsoft.com/mssql/server:2017-CU3-ubuntu"
+    ports:
+    - "127.0.0.1:62090:1433"
+    privileged: true
+    cap_add:
+    - SYS_PTRACE
+    environment:
+    - ACCEPT_EULA=Y
+    - MSSQL_PID=Developer
+    - MSSQL_SA_PASSWORD=flywayPWD000
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/sqlserver/entrypoint.sh:/entrypoint.sh
+    - ../flyway-core/src/test/resources/migration/database/sqlserver/createDatabase.sql:/createDatabase.sql
+    entrypoint:
+    - /entrypoint.sh
+  sqlserver-2019:
+    image: "mcr.microsoft.com/mssql/server:2019-GA-ubuntu-16.04"
+    ports:
+    - "127.0.0.1:62091:1433"
+    privileged: true
+    cap_add:
+    - SYS_PTRACE
+    environment:
+    - ACCEPT_EULA=Y
+    - MSSQL_PID=Developer
+    - MSSQL_SA_PASSWORD=flywayPWD000
+    volumes:
+    - ../flyway-core/src/test/resources/migration/database/sqlserver/entrypoint.sh:/entrypoint.sh
+    - ../flyway-core/src/test/resources/migration/database/sqlserver/createDatabase.sql:/createDatabase.sql
+    entrypoint:
+    - /entrypoint.sh
+  sybasease-157:
+    image: "datagrip/sybase:15.7"
+    hostname: dksybase
+    ports:
+    - "127.0.0.1:62100:5000"
+    privileged: true
+  sybasease-160:
+    image: "datagrip/sybase:16.0"
+    hostname: dksybase
+    ports:
+    - "127.0.0.1:62101:5000"
+    privileged: true
+#  This is here for future reference, though at present we don't use TiDB in regular tests.
+#  Use URL jdbc:mysql://localhost:62057/, user root, no password, and set flyway.schemas=<something>
+#  You'll need to use some other tool for now to create a database, after which that can be appended to the URL.
+#  tidb-5:
+#    image: "pingcap/tidb:v5.0.2"
+#    ports:
+#    - "127.0.0.1:62057:4000"
+#    privileged: true
